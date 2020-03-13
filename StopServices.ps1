@@ -8,8 +8,8 @@ $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Securekey)
 $Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
 
 
-Write-output  "Stopping Web-Viewer" > 'logfile.txt'
-Write-host "Stopping Web-viewer"
+Write-output  "Stopping Services" > 'logfile.txt'
+Write-host "Stopping Services"
 $WindowsServices = @("Service1","Service2")
 
 for ($i = 0;$i -lt $WindowsServices.length;$i++)
@@ -63,7 +63,7 @@ for ($i = 0;$i -lt $WindowsServices.length;$i++)
 
 Write-host -Foreground green "Server 1 Stopped"
 
-Write-output "Webviewer is stopped " >> 'logfile.txt'
+Write-output "Services is stopped " >> 'logfile.txt'
 
 
 Start-Sleep -Milliseconds 3000
@@ -131,5 +131,5 @@ for ($i = 0;$i -lt $WindowsServices2.length;$i++)
 
 Write-host -Foreground black -Background yellow "2nd server is stopped"
 
-Write-output "ICC Server is  stopped " >> 'logfile.txt'
+Write-output "Services is  stopped " >> 'logfile.txt'
 Start-Sleep -Milliseconds 3000

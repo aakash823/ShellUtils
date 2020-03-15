@@ -1,6 +1,6 @@
 
 
-$userid = domainname\username'
+$userid = domainname\username
 
 $passwd = Get-content -Path path\secure.txt
 $Securekey = ConvertTo-SecureString $passwd
@@ -33,7 +33,7 @@ for ($i = 0;$i -lt $WindowsServices.length;$i++)
 	}
 	if ((get-service -ComputerName hostname $WindowsServices[$i]).status -eq 'Running')
 	{
-
+		#If a service doesnt stop maxTimeout kill that service
 		$service = Get-Service -Name $WindowsServices[$i] -ComputerName hostname
 		$service.Stop();
 		$maxTimeout = "00:00:15"

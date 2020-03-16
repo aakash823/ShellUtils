@@ -1,6 +1,6 @@
 
 
-#Starting Archive Server
+#Starting Server 1
 
 
 
@@ -8,21 +8,21 @@ Write-host -Foreground green "Starting Server1"
 
 Write-output "Starting Services" > 'logfile.txt'
 
+#Placing all the services name into an array and itrate for each Service
 $WindowsServices = @("Service1","Service2")
 
 for ($i = 0; $i -lt $WindowsServices.length;$i++)
 {
+	#if a serice is already running, stop it
 	if ((get-service  $WindowsServices[$i]).status -eq 'Running')
 	{
-
 		Get-Service -Name $WindowsServices[$i]  | Stop-service -Force
-		
 		Write-host $WindowsServices[$i] + "is stopped"
-		
 		Start-Sleep -Milliseconds 5000 
 	}
 	if ((get-service  $WindowsServices[$i]).status -eq 'Stopped')
 	{	
+		#if a service is stopped, start the service and wait until it is running state
 		Get-Service -Name $WindowsServices[$i]  | Start-service
 		do{ Start-Sleep -Milliseconds 1000 }
 		until ((get-service  $WindowsServices[$i]).status -eq 'Running')
@@ -38,6 +38,7 @@ for ($i = 0; $i -lt $WindowsServices.length;$i++)
 		$ServicePID = (get-wmiobject win32_service  | where { $_.name -eq $WindowsServices[$i] }).processID
 		Stop-Process $ServicePID -Force
 	}
+	#change the service to Automatic after starting
 	Set-service  $WindowsServices[$i] -StartupType Automatic
 	Start-Sleep -Milliseconds 5000
 	
